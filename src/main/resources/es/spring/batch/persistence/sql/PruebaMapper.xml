@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="es.spring.batch.persistence.PruebaMapper">
+
+	<resultMap id="BaseResultMap" type="es.spring.batch.model.Prueba">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="nombre" property="nombre" jdbcType="VARCHAR" />
+		<result column="fecha" property="fecha" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="selectByExample" resultMap="BaseResultMap">
+		SELECT  id, nombre, fecha
+		FROM t_prueba
+	</select>
+	
+	<select id="selectByExamplePaginated" resultMap="BaseResultMap">
+  		SELECT id, nombre, fecha 
+  		FROM t_prueba 
+  		ORDER BY id ASC 
+  		LIMIT #{_skiprows}, #{_pagesize}
+	</select>
+
+</mapper>

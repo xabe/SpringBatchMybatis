@@ -1,0 +1,10 @@
+INSERT INTO t_prueba VALUES (1,'root',null),(2,'user',null),(3,'user',null)
+,(4,'user',null),(5,'user',null),(6,'user',null),(7,'user',null),(8,'user',null)
+,(9,'user',null),(10,'user',null),(11,'user',null),(12,'user',null)
+,(13,'user',null),(14,'user',null),(15,'user',null),(16,'user',null),(17,'user',null)
+,(18,'user',null),(19,'user',null),(20,'user',null),(21,'user',null),(22,'user',null)
+,(23,'user',null),(24,'user',null),(25,'user',null),(26,'user',null),(27,'user',null)
+,(28,'user',null),(29,'user',null),(30,'user',null),(31,'user',null),(32,'user',null)
+,(33,'user',null),(34,'user',null),(35,'user',null),(36,'user',null),(37,'user',null)
+,(38,'user',null),(39,'user',null),(40,'user',null),(41,'user',null),(42,'user',null)
+,(43,'user',null),(44,'user',null),(45,'user',null),(46,'user',null),(47,'user',null);

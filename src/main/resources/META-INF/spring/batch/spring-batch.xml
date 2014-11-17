@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:batch="http://www.springframework.org/schema/batch" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+	<!-- TransactionManager -->
+
+	<bean id="transactionManager"
+		class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
+
+	
+	<!-- Lanzador de procesos -->
+
+	<bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<property name="jobRepository" ref="jobRepository" />
+	</bean>
+
+	<!-- Repositorio de jobs en memoria -->
+
+	<bean id="jobRepository"
+		class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+	
+	<!-- Job -->
+	
+	<job id="testJob" xmlns="http://www.springframework.org/schema/batch"
+		job-repository="jobRepository">
+		<step id="step1">
+			<tasklet transaction-manager="transactionManager">
+				<chunk reader="itemReader" writer="itemWriter"
+					commit-interval="10" />
+			</tasklet>
+		</step>
+	</job>
+	
+	<!-- Item Reader -->
+	
+	<import resource="classpath:META-INF/spring/batch/spring-batch-jdbc.xml"/>
+	<import resource="classpath:META-INF/spring/batch/spring-batch-mybatis.xml"/>
+
+	<!-- Item Writer -->
+
+	<bean id="itemWriter" class="org.springframework.batch.item.xml.StaxEventItemWriter">
+		<property name="resource" value="file:xml/outputs/pruebas.xml" />
+		<property name="marshaller" ref="pruebaUnmarshaller" />
+		<property name="rootTagName" value="pruebas" />
+	</bean>
+
+	<bean id="pruebaUnmarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+		<property name="aliases">
+			<util:map id="aliases">
+				<entry key="user" value="es.spring.batch.model.Prueba" />
+			</util:map>
+		</property>
+	</bean>
+
+</beans>
